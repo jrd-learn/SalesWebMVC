@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using SalesWebMvc.Services;
 using SalesWebMVC.Data;
 using SalesWebMVC.Services;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace SalesWebMVC
 {
@@ -15,13 +17,20 @@ namespace SalesWebMVC
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<DepartmentService>();
             builder.Services.AddScoped<SellerService>();
-
+            
             var connectionStrings = builder.Configuration.GetConnectionString("SalesWebMVCContext");
             builder.Services.AddDbContext<SalesWebMVCContext>(x => x.UseMySql(connectionStrings, ServerVersion.AutoDetect(connectionStrings)));
 
+            var enUS = new CultureInfo("en-US");
+            var localizationOptions = new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture(enUS),
+                SupportedCultures = new List<CultureInfo> { enUS },
+                SupportedUICultures = new List<CultureInfo> { enUS }
+            };
+
             var app = builder.Build();
 
-            SeedingService.Seed(app);
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -30,6 +39,10 @@ namespace SalesWebMVC
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseRequestLocalization(localizationOptions);
+            
+            SeedingService.Seed(app);
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

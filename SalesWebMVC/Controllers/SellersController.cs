@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using NuGet.Protocol.Plugins;
 using SalesWebMVC.Models;
 using SalesWebMVC.Models.ViewModels;
 using SalesWebMVC.Services;
@@ -66,9 +65,9 @@ namespace SalesWebMVC.Controllers
         public async Task<IActionResult> Create()
         {
             var departments = await _departmentService.ListAllAsync();
-            
+
             ViewData["DepartmentId"] = new SelectList(departments, "Id", "Name");
-            
+
             return View();
         }
 
