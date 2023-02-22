@@ -15,19 +15,19 @@
         <table class="table table-hover" id="table-employee">
             <thead>
                 <tr>
-                    <th class="fs-5">
+                    <th class="fs-5 text-center">
                         @Html.DisplayNameFor(model => model.Name)
                     </th>
-                    <th class="fs-5">
+                    <th class="fs-5 text-center">
                         @Html.DisplayNameFor(model => model.Email)
                     </th>
-                    <th class="fs-5">
+                    <th class="fs-5 text-center">
                         @Html.DisplayNameFor(model => model.BirthDate)
                     </th>
-                    <th class="fs-5">
+                    <th class="fs-5 text-center">
                         @Html.DisplayNameFor(model => model.BaseSalary)
                     </th>
-                    <th class="fs-5">
+                    <th class="fs-5 text-center">
                         @Html.DisplayNameFor(model => model.Department)
                     </th>
                     <th class="d-grid gap-2 d-md-flex justify-content-md-center">
@@ -38,19 +38,19 @@
             <tbody>
                 @foreach (var item in Model) {
                     <tr>
-                        <td>
+                        <td class="text-center">
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
-                        <td>
+                        <td class="text-center">
                             @Html.DisplayFor(modelItem => item.Email)
                         </td>
-                        <td>
+                        <td class="text-center">
                             @Html.DisplayFor(modelItem => item.BirthDate)
                         </td>
-                        <td>
+                        <td class="text-center">
                             @Html.DisplayFor(modelItem => item.BaseSalary)
                         </td>
-                        <td>
+                        <td class="text-center">
                             @Html.DisplayFor(modelItem => item.Department.Name)
                         </td>
                         <td class="d-grid gap-2 d-md-flex justify-content-md-center">
