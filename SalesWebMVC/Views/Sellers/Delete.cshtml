@@ -1,51 +1,91 @@
 ﻿@model SalesWebMVC.Models.Seller
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Sellers";
 }
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Seller</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BirthDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BirthDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BaseSalary)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BaseSalary)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Department)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Department.Name)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+<br />
+<div class="text-center">
+    <h2 class="display-4">@ViewData["Title"]</h2>
 </div>
+<br /><hr /><br /><br />
+
+<div class="text-center">
+    <h3>Are you sure you want to delete this?</h3>
+</div>
+<div class="d-grid gap-2 d-md-flex justify-content-md-center">
+    <div class="col-md-6 border-top">
+        <br />
+        <form asp-action="Delete">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div>
+                <table class="table table-borderless">
+                    <tbody>
+                        <tr>
+                            <th class="col-sm-2 fs-4 text-center">
+                                <label asp-for="Id" class="control-label"></label>
+                            </th>
+                            <td>
+                                <input disabled asp-for="Id" class="form-control text-center" />
+                            </td>
+                        </tr>
+                        <tr>
+                        <th class="col-sm-2 fs-4 text-center">
+                            <label asp-for="Name" class="control-label"></label>
+                        </th>
+                        <td>
+                            <input disabled asp-for="Name" class="form-control text-center" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-2 fs-4 text-center">
+                            <label asp-for="Email" class="control-label"></label>
+                        </th>
+                        <td>
+                            <input disabled asp-for="Email" class="form-control text-center" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-2 fs-4 text-center">
+                            <label asp-for="BirthDate" class="control-label"></label>
+                        </th>
+                        <td>
+                            <input disabled asp-for="BirthDate" class="form-control text-center" />
+                            <span asp-validation-for="BirthDate" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-2 fs-4 text-center">
+                            <label asp-for="BaseSalary" class="control-label"></label>
+                        </th>
+                        <td>
+                            <input disabled asp-for="BaseSalary" class="form-control text-center" />
+                            <span asp-validation-for="BaseSalary" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-2 fs-4 text-center">
+                            <label asp-for="Department" class="control-label"></label>
+                        </th>
+                        <td>
+                            <input disabled asp-for="Department.Name" class="form-control text-center" />
+                            <span asp-validation-for="Department.Name" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+                <div class="gap-2 d-md-flex justify-content-md-center form-group">
+                    <input type="submit" value="Delete" class="btn btn-danger btn-sm" />
+                    <a class="btn btn-outline-secondary btn-sm" asp-action="Index" asp-route-id="@Model.Id">Cancel</a>
+                </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

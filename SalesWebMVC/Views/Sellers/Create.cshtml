@@ -1,4 +1,4 @@
-﻿@model SalesWebMVC.Models.Seller
+﻿@*@model SalesWebMVC.Models.Seller
 
 @{
     ViewData["Title"] = "Create";
@@ -46,6 +46,90 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}*@
+
+@model SalesWebMVC.Models.ViewModels.SellerFormViewModel
+
+@{
+    ViewData["Title"] = "Sellers";
+}
+
+<br />
+<div class="text-center">
+    <h2 class="display-4">@ViewData["Title"]</h2>
+</div>
+<br /><hr /><br /><br />
+
+<div class="text-center">
+    <h3>Create</h3>
+</div>
+<div class="d-grid gap-2 d-md-flex justify-content-md-center">
+    <div class="col-md-6 border-top">
+        <br />
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div>
+                <table class="table table-borderless">
+                    <tbody>
+                        <tr>
+                        <th class="col-sm-2 fs-4 text-center">
+                            <label asp-for="Seller.Name" class="control-label"></label>
+                        </th>
+                        <td>
+                            <input asp-for="Seller.Name" class="form-control text-center" />
+                            <span asp-validation-for="Seller.Name" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-2 fs-4 text-center">
+                            <label asp-for="Seller.Email" class="control-label"></label>
+                        </th>
+                        <td>
+                            <input asp-for="Seller.Email" class="form-control text-center" />
+                            <span asp-validation-for="Seller.Email" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-2 fs-4 text-center">
+                            <label asp-for="Seller.BirthDate" class="control-label"></label>
+                        </th>
+                        <td>
+                            <input asp-for="Seller.BirthDate" class="form-control text-center" />
+                            <span asp-validation-for="Seller.BirthDate" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-2 fs-4 text-center">
+                            <label asp-for="Seller.BaseSalary" class="control-label"></label>
+                        </th>
+                        <td>
+                            <input asp-for="Seller.BaseSalary" class="form-control text-center" />
+                            <span asp-validation-for="Seller.BaseSalary" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-2 fs-4 text-center">
+                            <label asp-for="Seller.Department" class="control-label"></label>
+                        </th>
+                        <td>
+                            <select asp-for="Seller.DepartmentId" class="form-control text-center" asp-items="ViewBag.DepartmentId"></select>
+                            <span asp-validation-for="Seller.DepartmentId" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+                <div class="gap-2 d-md-flex justify-content-md-center form-group">
+                    <input type="submit" value="Save" class="btn btn-primary btn-sm" />
+                    <a class="btn btn-outline-secondary btn-sm" asp-action="index">Cancel</a>
+                </div>
+        </form>
+    </div>
+</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

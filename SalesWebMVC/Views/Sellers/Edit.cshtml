@@ -1,53 +1,90 @@
 ﻿@model SalesWebMVC.Models.ViewModels.SellerFormViewModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Sellers";
 }
 
-<h1>Edit</h1>
+<br />
+<div class="text-center">
+    <h2 class="display-4">@ViewData["Title"]</h2>
+</div>
+<br /><hr /><br /><br />
 
-<h4>SellerFormViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="text-center">
+    <h3>Edit</h3>
+</div>
+<div class="d-grid gap-2 d-md-flex justify-content-md-center">
+    <div class="col-md-6 border-top">
+        <br />
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Seller.Id" />
-            <div class="form-group">
-                <label asp-for="Seller.Name" class="control-label"></label>
-                <input asp-for="Seller.Name" class="form-control" />
-                <span asp-validation-for="Seller.Name" class="text-danger"></span>
+            <div>
+                <table class="table table-borderless">
+                    <tbody>
+                        <tr>
+                            <th class="col-sm-2 fs-4 text-center">
+                                <label asp-for="Seller.Id" class="control-label"></label>
+                            </th>
+                            <td>
+                                <input disabled asp-for="Seller.Id" class="form-control text-center" />
+                            </td>
+                        </tr>
+                        <tr>
+                        <th class="col-sm-2 fs-4 text-center">
+                            <label asp-for="Seller.Name" class="control-label"></label>
+                        </th>
+                        <td>
+                            <input asp-for="Seller.Name" class="form-control text-center" />
+                            <span asp-validation-for="Seller.Name" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-2 fs-4 text-center">
+                            <label asp-for="Seller.Email" class="control-label"></label>
+                        </th>
+                        <td>
+                            <input asp-for="Seller.Email" class="form-control text-center" />
+                            <span asp-validation-for="Seller.Email" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-2 fs-4 text-center">
+                            <label asp-for="Seller.BirthDate" class="control-label"></label>
+                        </th>
+                        <td>
+                            <input asp-for="Seller.BirthDate" class="form-control text-center" />
+                            <span asp-validation-for="Seller.BirthDate" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-2 fs-4 text-center">
+                            <label asp-for="Seller.BaseSalary" class="control-label"></label>
+                        </th>
+                        <td>
+                            <input asp-for="Seller.BaseSalary" class="form-control text-center" />
+                            <span asp-validation-for="Seller.BaseSalary" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-2 fs-4 text-center">
+                            <label asp-for="Seller.Department" class="control-label"></label>
+                        </th>
+                        <td>
+                            <select asp-for="Seller.DepartmentId" class="form-control text-center" asp-items="ViewBag.DepartmentId"></select>
+                            <span asp-validation-for="Seller.DepartmentId" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="form-group">
-                <label asp-for="Seller.Email" class="control-label"></label>
-                <input type="email" asp-for="Seller.Email" class="form-control" />
-                <span asp-validation-for="Seller.Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Seller.BirthDate" class="control-label"></label>
-                <input asp-for="Seller.BirthDate" class="form-control" />
-                <span asp-validation-for="Seller.BirthDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Seller.BaseSalary" class="control-label"></label>
-                <input asp-for="Seller.BaseSalary" class="form-control" />
-                <span asp-validation-for="Seller.BaseSalary" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Seller.DepartmentId" class="control-label"></label>
-                <select asp-for="Seller.DepartmentId" class="form-control" asp-items="ViewBag.DepartmentId"></select>
-                <span asp-validation-for="Seller.DepartmentId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
+                <div class="gap-2 d-md-flex justify-content-md-center form-group">
+                    <input type="submit" value="Save" class="btn btn-primary btn-sm" />
+                    <a class="btn btn-outline-secondary btn-sm" asp-action="Details" asp-route-id="@Model.Seller.Id">Return</a>
+                </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
