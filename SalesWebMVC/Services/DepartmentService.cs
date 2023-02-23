@@ -18,7 +18,7 @@ namespace SalesWebMVC.Services
             return await _context.Departments.ToListAsync();
         }
 
-        public async Task<Department> GetByIdAsync(int id)
+        public async Task<Department> GetByIdAsync(int? id)
         {
             return await _context.Departments.FirstOrDefaultAsync(x => x.Id == id);
         }

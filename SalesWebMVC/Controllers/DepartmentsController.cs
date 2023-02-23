@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SalesWebMVC.Models;
+using SalesWebMVC.Models.ViewModels;
 using SalesWebMVC.Services;
+using System.Diagnostics;
 
 namespace SalesWebMVC.Controllers
 {
@@ -19,35 +21,50 @@ namespace SalesWebMVC.Controllers
             var departments = await _departmentService.ListAllAsync();
             return View(departments);
         }
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int? id)
         {
+            if (id is null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "ID not provided." });
+            }
+
             var department = await _departmentService.GetByIdAsync(id);
 
             if (department == null)
             {
-                return RedirectToAction(nameof(Index), new { message = "ID not provided." });
+                return RedirectToAction(nameof(Error), new { message = "ID not found." });
             }
 
             return View(department);
         }
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int? id)
         {
+            if (id is null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "ID not provided." });
+            }
+
             var department = await _departmentService.GetByIdAsync(id);
 
             if (department == null)
             {
-                return RedirectToAction(nameof(Index), new { message = "ID not provided." });
+                return RedirectToAction(nameof(Error), new { message = "ID not found." });
             }
 
             return View(department);
         }
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int? id)
         {
+            if (id is null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "ID not provided." });
+            }
+
             var department = await _departmentService.GetByIdAsync(id);
 
             if (department == null)
             {
-                return RedirectToAction(nameof(Index), new { message = "ID not provided." });
+                return RedirectToAction(nameof(Error), new { message = "ID not found." });
             }
 
             return View(department);
@@ -63,7 +80,7 @@ namespace SalesWebMVC.Controllers
         {
             if (id != department.Id)
             {
-                return RedirectToAction(nameof(Index), new { message = "ID missmatch." });
+                return RedirectToAction(nameof(Error), new { message = "ID missmatch." });
             }
 
             if (ModelState.IsValid)
@@ -75,7 +92,7 @@ namespace SalesWebMVC.Controllers
                 }
                 catch (DbUpdateConcurrencyException e)
                 {
-                    return RedirectToAction(nameof(Index), new { message = $"Error: {e.Message}" });
+                    return RedirectToAction(nameof(Error), new { message = $"Error: {e.Message}" });
                 }
             }
             
@@ -87,7 +104,7 @@ namespace SalesWebMVC.Controllers
         {
             if (id != department.Id)
             {
-                return RedirectToAction(nameof(Index), new { message = "ID not provided." });
+                return RedirectToAction(nameof(Error), new { message = "ID missmatch." });
             }
 
             try
@@ -97,7 +114,7 @@ namespace SalesWebMVC.Controllers
             }
             catch (DbUpdateConcurrencyException e)
             {
-                return RedirectToAction(nameof(Index), new { message = $"Error: {e.Message}" });
+                return RedirectToAction(nameof(Error), new { message = $"Error: {e.Message}" });
             }
         }
 
@@ -114,11 +131,21 @@ namespace SalesWebMVC.Controllers
                 }
                 catch (DbUpdateConcurrencyException e)
                 {
-                    return RedirectToAction(nameof(Index), new { message = $"Error: {e.Message}" });
+                    return RedirectToAction(nameof(Error), new { message = $"Error: {e.Message}" });
                 }
             }
 
             return View(department);
+        }
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+
+            return View(viewModel);
         }
     }
 }

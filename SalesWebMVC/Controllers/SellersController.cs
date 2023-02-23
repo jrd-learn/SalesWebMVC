@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using SalesWebMVC.Models;
 using SalesWebMVC.Models.ViewModels;
 using SalesWebMVC.Services;
+using System.Diagnostics;
 
 namespace SalesWebMVC.Controllers
 {
@@ -28,7 +29,7 @@ namespace SalesWebMVC.Controllers
 
             if (seller == null)
             {
-                return RedirectToAction(nameof(Index), new { message = "ID not provided." });
+                return RedirectToAction(nameof(Error), new { message = "ID not found." });
             }
 
             return View(seller);
@@ -39,7 +40,7 @@ namespace SalesWebMVC.Controllers
 
             if (seller is null)
             {
-                return RedirectToAction(nameof(Index), new { message = "ID not found." });
+                return RedirectToAction(nameof(Error), new { message = "ID not found." });
             }
 
             var departments = await _departmentService.ListAllAsync();
@@ -57,7 +58,7 @@ namespace SalesWebMVC.Controllers
 
             if (seller == null)
             {
-                return RedirectToAction(nameof(Index), new { message = "ID not provided." });
+                return RedirectToAction(nameof(Error), new { message = "ID not found." });
             }
 
             return View(seller);
@@ -77,7 +78,7 @@ namespace SalesWebMVC.Controllers
         {
             if (id != seller.Id)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "ID missmatch." });
             }
 
             if (ModelState.IsValid)
@@ -89,7 +90,7 @@ namespace SalesWebMVC.Controllers
                 }
                 catch (DbUpdateConcurrencyException e)
                 {
-                    return RedirectToAction(nameof(Index), new { message = $"Error: {e.Message}" });
+                    return RedirectToAction(nameof(Error), new { message = $"Error: {e.Message}" });
                 }
             }
 
@@ -102,7 +103,7 @@ namespace SalesWebMVC.Controllers
         {
             if (id != seller.Id)
             {
-                return RedirectToAction(nameof(Index), new { message = "ID not provided." });
+                return RedirectToAction(nameof(Error), new { message = "ID missmatch." });
             }
 
             try
@@ -112,7 +113,7 @@ namespace SalesWebMVC.Controllers
             }
             catch (DbUpdateConcurrencyException e)
             {
-                return RedirectToAction(nameof(Index), new { message = $"Error: {e.Message}" });
+                return RedirectToAction(nameof(Error), new { message = $"Error: {e.Message}" });
             }
         }
 
@@ -122,7 +123,7 @@ namespace SalesWebMVC.Controllers
         {
             if (id != seller.Id)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "ID missmatch." });
             }
 
             if (ModelState.IsValid)
@@ -134,11 +135,22 @@ namespace SalesWebMVC.Controllers
                 }
                 catch (DbUpdateConcurrencyException e)
                 {
-                    return RedirectToAction(nameof(Index), new { message = $"Error: {e.Message}" });
+                    return RedirectToAction(nameof(Error), new { message = $"Error: {e.Message}" });
                 }
             }
 
             return RedirectToAction(nameof(Edit), id);
+        }
+
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+
+            return View(viewModel);
         }
     }
 }
