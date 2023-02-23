@@ -17,7 +17,8 @@ namespace SalesWebMVC
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<DepartmentService>();
             builder.Services.AddScoped<SellerService>();
-            
+            builder.Services.AddScoped<SalesService>();
+
             var connectionStrings = builder.Configuration.GetConnectionString("SalesWebMVCContext");
             builder.Services.AddDbContext<SalesWebMVCContext>(x => x.UseMySql(connectionStrings, ServerVersion.AutoDetect(connectionStrings)));
 
