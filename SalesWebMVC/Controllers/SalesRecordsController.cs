@@ -15,8 +15,14 @@ namespace SalesWebMVC.Controllers
             _salesRecordService = salesRecordService;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
+            var minDate = _salesRecordService.FindMinDate();
+            ViewData["minDate"] = minDate.ToString("yyyy-MM-dd");
+
+            var maxDate = _salesRecordService.FindMaxDate();
+            ViewData["maxDate"] = maxDate.ToString("yyyy-MM-dd");
+
             return View();
         }
         

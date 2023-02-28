@@ -12,13 +12,13 @@
         <div class="col-md-4">
             <div class="input-group border border-primary text-center font-monospace">
                 <span for="minDate" class="input-group-text fs-5 text-bg-primary"><strong>MIN DATE</strong></span>
-                <input type="date" name="minDate" class="form-control text-center text-uppercase" required />
+                <input type="date" name="minDate" value="@ViewData["minDate"]" class="form-control text-center text-uppercase" required />
             </div>
         </div>
         <div class="col-md-4">
             <div class="input-group border border-primary text-center font-monospace">
                 <span for="maxDate" class="input-group-text fs-5 text-bg-primary"><strong>MAX DATE</strong></span>
-                <input type="date" name="maxDate" class="form-control text-center text-uppercase" required />
+                <input type="date" name="maxDate" value="@ViewData["maxDate"]" class="form-control text-center text-uppercase" required />
             </div>
         </div>
         <p></p>

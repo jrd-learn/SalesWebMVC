@@ -13,6 +13,34 @@ namespace SalesWebMVC.Services
             _context = context;
         }
 
+        public DateTime FindMinDate()
+        {
+            var result = (from obj in _context.SalesRecords select obj)
+                .OrderBy(x => x.Date)
+                .FirstOrDefault();
+
+            if (result == null)
+            {
+                return new DateTime(DateTime.Now.Year, 1, 1);
+            }
+
+            return result.Date;
+        }
+
+        public DateTime FindMaxDate()
+        {
+            var result = (from obj in _context.SalesRecords select obj)
+                .OrderByDescending(x => x.Date)
+                .FirstOrDefault();
+
+            if (result == null)
+            {
+                return DateTime.Now;
+            }
+
+            return result.Date;
+        }
+
         public async Task<List<SalesRecord>> FindByDateAsync(DateTime minDate, DateTime maxDate)
         {
             var result = from obj in _context.SalesRecords select obj;
