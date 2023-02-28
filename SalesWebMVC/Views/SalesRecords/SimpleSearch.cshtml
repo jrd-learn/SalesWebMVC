@@ -1,0 +1,90 @@
+﻿@model IEnumerable<SalesRecord>
+
+@{
+    ViewData["Title"] = "Sales Records";
+}
+
+<br />
+<div class="text-center">
+    <h2 class="display-4">@ViewData["Title"]</h2>
+</div>
+<br />
+<div class="text-center">
+    <h4>Simple Search</h4>
+</div>
+<hr /><br />
+
+<div class="container-fluid d-grid gap-2 d-md-flex justify-content-md-center">
+    <form class="row g-3 d-grid gap-2 d-md-flex justify-content-md-center">
+        <div class="col-md-5">
+            <div class="input-group border border-primary text-center font-monospace">
+                <span for="minDate" class="input-group-text fs-5 text-bg-primary"><strong>MIN DATE</strong></span>
+                <input type="date" name="minDate" value="@ViewData["minDate"]" class="form-control text-center text-bg-secondary text-uppercase" required />
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="input-group border border-primary text-center font-monospace">
+                <span for="maxDate" class="input-group-text fs-5 text-bg-primary text-center"><strong>MAX DATE</strong></span>
+                <input type="date" name="maxDate" value="@ViewData["maxDate"]" class="form-control text-center text-bg-secondary text-uppercase" required />
+            </div>
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-center border-bottom">
+            <input type="submit" value="Search" class="btn btn-outline text-decoration-underline" />
+        </div>
+        <p></p>
+    </form>
+</div>
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-center">
+    <div>
+        <table class="table table-hover border-primary">
+            <thead>
+                <tr class="text-bg-primary">
+                    <th class="fs-5 text-center">
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th class="fs-5 text-center">
+                        @Html.DisplayNameFor(model => model.Seller.Name)
+                    </th>
+                    <th class="fs-5 text-center">
+                        @Html.DisplayNameFor(model => model.Seller.Department)
+                    </th>
+                    <th class="fs-5 text-center">
+                        @Html.DisplayNameFor(model => model.Amount)
+                    </th>
+                    <th class="fs-5 text-center">
+                        @Html.DisplayNameFor(model => model.Date)
+                    </th>
+                    <th class="fs-5 text-center">
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model) {
+                    <tr>
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => item.Seller.Name)
+                        </td>
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => item.Seller.Department.Name)
+                        </td>
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => item.Amount)
+                        </td>
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="text-bg-primary font-monospace fs-4 text-center"><strong>TOTAL SALES =</strong> $ @Model.Sum(obj => obj.Amount).ToString("F2")</div>
+    </div>
+</div>

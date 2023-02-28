@@ -1,32 +1,64 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SalesWebMVC.Models;
+using SalesWebMVC.Models.ViewModels;
 using SalesWebMVC.Services;
+using System.Diagnostics;
 
 namespace SalesWebMVC.Controllers
 {
     public class SalesRecordsController : Controller
     {
-        private readonly SalesService _salesService;
+        private readonly SalesRecordService _salesRecordService;
 
-        public SalesRecordsController(SalesService salesService)
+        public SalesRecordsController(SalesRecordService salesRecordService)
         {
-            _salesService = salesService;
+            _salesRecordService = salesRecordService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var list = await _salesService.ListAllAsync();
+            return View();
+        }
+        
+        public async Task<IActionResult> SimpleSearch(DateTime minDate, DateTime maxDate)
+        {
+            if (minDate > maxDate)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Min date can not be lesser than max date." });
+            }
+
+            ViewData["minDate"] = minDate.ToString("yyyy-MM-dd");
+            ViewData["maxDate"] = maxDate.ToString("yyyy-MM-dd");
+
+            var result = await _salesRecordService.FindByDateAsync(minDate, maxDate);
             
-            return View(list);
+            return View(result);
         }
 
-        public IActionResult SimpleSearch()
+        public async Task<IActionResult> GroupingSearch(DateTime minDate, DateTime maxDate)
         {
-            return View();
+            if (minDate > maxDate)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Min date can not be lesser than max date." });
+            }
+
+            ViewData["minDate"] = minDate.ToString("yyyy-MM-dd");
+            ViewData["maxDate"] = maxDate.ToString("yyyy-MM-dd");
+
+            var result = await _salesRecordService.FindByDateGroupingAsync(minDate, maxDate);
+
+            return View(result);
         }
 
-        public IActionResult GroupingSearch()
+        public IActionResult Error(string message)
         {
-            return View();
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+
+            return View(viewModel);
         }
     }
 }

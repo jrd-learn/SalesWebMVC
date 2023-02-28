@@ -12,26 +12,26 @@
 <div class="d-grid gap-2 d-md-flex justify-content-md-center">
     
     <div>
-        <table class="table table-hover" id="table-employee">
+        <table class="table table-hover">
             <thead>
-                <tr>
+                <tr class="text-bg-primary">
                     <th class="fs-5 text-center">
                         @Html.DisplayNameFor(model => model.Name)
                     </th>
                     <th class="fs-5 text-center">
                         @Html.DisplayNameFor(model => model.Email)
                     </th>
-                    <th class="fs-5 text-center">
+                    <th class="fs-5 text-center text-nowrap">
                         @Html.DisplayNameFor(model => model.BirthDate)
                     </th>
-                    <th class="fs-5 text-center">
+                    <th class="fs-5 text-center text-nowrap">
                         @Html.DisplayNameFor(model => model.BaseSalary)
                     </th>
                     <th class="fs-5 text-center">
                         @Html.DisplayNameFor(model => model.Department)
                     </th>
                     <th class="d-grid gap-2 d-md-flex justify-content-md-center">
-                        <a class="btn btn-primary" asp-action="Create">Create</a>
+                        <a class="btn btn-outline-light" asp-action="Create">Create</a>
                     </th>
                 </tr>
             </thead>

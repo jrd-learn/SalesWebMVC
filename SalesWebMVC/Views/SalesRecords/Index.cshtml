@@ -1,7 +1,5 @@
-﻿@model IEnumerable<SalesWebMVC.Models.SalesRecord>
-
-@{
-    ViewData["Title"] = "Sales";
+﻿@{
+    ViewData["Title"] = "Sales Records";
 }
 
 <br />
@@ -10,56 +8,25 @@
 </div>
 <br /><hr /><br />
 <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-    
-    <div>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th class="fs-5 text-center">
-                        @Html.DisplayNameFor(model => model.Seller.Name)
-                    </th>
-                    <th class="fs-5 text-center">
-                        @Html.DisplayNameFor(model => model.Seller.Department)
-                    </th>
-                    <th class="fs-5 text-center">
-                        @Html.DisplayNameFor(model => model.Amount)
-                    </th>
-                    <th class="fs-5 text-center">
-                        @Html.DisplayNameFor(model => model.Date)
-                    </th>
-                    <th class="fs-5 text-center">
-                        @Html.DisplayNameFor(model => model.Status)
-                    </th>
-                    <th class="d-grid gap-2 d-md-flex justify-content-md-center">
-                        <a class="btn btn-primary" asp-action="Create">Create</a>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model) {
-                    <tr>
-                        <td class="text-center">
-                            @Html.DisplayFor(modelItem => item.Seller.Name)
-                        </td>
-                        <td class="text-center">
-                            @Html.DisplayFor(modelItem => item.Seller.Department.Name)
-                        </td>
-                        <td class="text-center">
-                            @Html.DisplayFor(modelItem => item.Amount)
-                        </td>
-                        <td class="text-center">
-                            @Html.DisplayFor(modelItem => item.Date)
-                        </td>
-                        <td class="text-center">
-                            @Html.DisplayFor(modelItem => item.Status)
-                        </td>
-                        <td class="d-grid gap-2 d-md-flex justify-content-md-center">
-                            <a class="btn btn-outline-primary btn-sm" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                            <a class="btn btn-outline-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+    <form class="row g-3 d-grid gap-2 d-md-flex justify-content-md-center">
+        <div class="col-md-4">
+            <div class="input-group border border-primary text-center font-monospace">
+                <span for="minDate" class="input-group-text fs-5 text-bg-primary"><strong>MIN DATE</strong></span>
+                <input type="date" name="minDate" class="form-control text-center text-uppercase" required />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="input-group border border-primary text-center font-monospace">
+                <span for="maxDate" class="input-group-text fs-5 text-bg-primary"><strong>MAX DATE</strong></span>
+                <input type="date" name="maxDate" class="form-control text-center text-uppercase" required />
+            </div>
+        </div>
+        <p></p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+            <div class="btn-group">
+                <input type = "submit" value="Simple Search" formaction="@Url.Action("SimpleSearch")" formmethod="post" class="btn btn-outline text-primary" />
+                <input type = "submit" value="Grouping Search" formaction="@Url.Action("GroupingSearch")" formmethod="post" class="btn btn-outline text-primary" />
+            </div>
+        </div>
+    </form>
 </div>
