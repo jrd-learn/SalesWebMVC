@@ -119,19 +119,14 @@ namespace SalesWebMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int id, Seller seller)
+        public async Task<IActionResult> Create(Seller seller)
         {
-            if (id != seller.Id)
-            {
-                return RedirectToAction(nameof(Error), new { message = "ID missmatch." });
-            }
-
             if (ModelState.IsValid)
             {
                 try
                 {
-                    await _sellerService.UpdateAsync(seller);
-                    return RedirectToAction(nameof(Details), id);
+                    await _sellerService.CreateAsync(seller);
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException e)
                 {
@@ -139,7 +134,7 @@ namespace SalesWebMVC.Controllers
                 }
             }
 
-            return RedirectToAction(nameof(Edit), id);
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Error(string message)
