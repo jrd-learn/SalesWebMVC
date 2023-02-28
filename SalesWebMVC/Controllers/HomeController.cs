@@ -20,7 +20,7 @@ namespace SalesWebMVC.Controllers
             ViewData["CourseURL"] = "https://www.udemy.com/course/programacao-orientada-a-objetos-csharp";
             ViewData["Teacher"] = "Nelio Alves";
             ViewData["Student"] = "Walter B. Durand Jr.";
-            ViewData["GitHub"] = "GitHub";
+            ViewData["GitHub"] = "https://github.com/jrd-learn/SalesWebMVC";
             ViewData["Linkedin"] = "https://www.linkedin.com/in/walter-b-durand-jr-014bb4181";
 
             return View();
